@@ -3,36 +3,109 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
   <link rel="icon" href="data:,">
-  <title>Radix WebGPU sorter capacity reproduction</title>
-  <style>
-    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; }
-    body { max-width: 54rem; margin: 2rem auto; padding: 0 1rem; }
-    h1 { font-size: 1.55rem; }
-    canvas { display: block; width: min(100%, 640px); height: auto; }
-    table { border-collapse: collapse; margin-block: 1rem; width: 100%; }
-    th, td { padding: .45rem .55rem; border-bottom: 1px solid #555; text-align: left; }
-    th { font-size: .85rem; }
-    button { padding: .4rem .6rem; }
-  </style>
+  <link rel="stylesheet" href="./report.css">
+  <title>WebGPU sorter growth · Radix 0.0.1</title>
   <script type="importmap">
     {"imports":{"three":"./three/three.module.js","three/webgpu":"./three/three.webgpu.js","three/tsl":"./three/three.tsl.js"}}
   </script>
 </head>
 <body>
-  <h1>Radix WebGPU sorter capacity reproduction</h1>
-  <p><a href="?mode=stock">Stock 0.0.1</a> · <a href="?mode=unmapped">Unmapped growth</a> · <a href="?mode=patched">Patch without reservation</a> · <a href="?mode=reserve">Patch with startup reservation</a></p>
-  <p id="status" role="status">Starting WebGPU…</p>
-  <div id="viewport"></div>
-  <table aria-label="Frame results">
-    <thead><tr><th>Frame</th><th>Candidates</th><th>Visible</th><th>Pair capacity</th><th>Scratch buffers</th><th>Sort CPU ms</th><th>Next callback ms</th></tr></thead>
-    <tbody id="results"></tbody>
-  </table>
-  <p><button id="save" disabled>Save measurements</button></p>
-  <p>Roman Parish scan by <a href="https://www.linkedin.com/in/andrii-shramko/">Andrii Shramko</a>, streamed from the <a href="https://code.playcanvas.com/examples_data/example_roman_parish_03/lod-meta.json">PlayCanvas example</a>.</p>
+  <main>
+    <header class="mast">
+      <span>Radix 0.0.1 <span aria-hidden="true">/</span> WebGPU</span>
+      <nav aria-label="Source and discussion">
+        <a href="https://github.com/sparkjsdev/radix/issues/1">Issue #1</a>
+        <a href="https://github.com/sparkjsdev/radix/compare/main...MisterE123:fix/webgpu-sort-scratch-growth">Review patch ↗</a>
+      </nav>
+    </header>
+    <section class="intro" aria-labelledby="problem">
+      <div>
+        <h1 id="problem">Growing sort buffers can stall a frame</h1>
+        <p>Stock Radix copies zero-filled arrays into six new scratch buffers during the sort. The patch allocates the same six buffers directly on the GPU.</p>
+      </div>
+      <section class="reference" aria-labelledby="reference-heading">
+        <h2 id="reference-heading">Recorded comparison</h2>
+        <p class="meta">RTX 3090 · Edge 157 · Roman Parish</p>
+        <div class="metrics">
+          <div><span>Stock sort</span><strong>42.2 <small>ms</small></strong></div>
+          <div><span>Patched sort</span><strong>1.3 <small>ms</small></strong></div>
+        </div>
+        <p>Growing from 2M to 3M candidates delayed the next callback to <b>46.1 ms</b> on stock and <b>16.5 ms</b> with the patch. Replaying 3M or increasing to 3.5M inside the new capacity took <b>0.3 ms</b> on stock.</p>
+        <a href="https://github.com/MisterE123/radix-sort-growth-repro/blob/main/radix-0.0.1/INVESTIGATION.md">Method and recorded results ↗</a>
+      </section>
+    </section>
+
+    <section class="live" aria-labelledby="live-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="live-heading">Compare on your device</h2>
+          <p>Run stock and patch in sequence with the same inputs. Keep this tab visible and pause other GPU work for comparable timings.</p>
+        </div>
+        <button id="run-both" class="primary" type="button">Compare stock and fix</button>
+      </div>
+      <p id="compare-progress" role="status"></p>
+      <p id="live-summary"></p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Stock and fix results on this device">
+        <table class="comparison">
+          <thead><tr><th scope="col">Implementation</th><th scope="col">Sort at increase<br>(ms)</th><th scope="col">Next callback<br>(ms)</th><th scope="col">New scratch<br>buffers</th><th scope="col">Replay sort<br>(ms)</th><th scope="col">Further increase<br>sort (ms)</th></tr></thead>
+          <tbody id="comparison-body"><tr><td colspan="6">Waiting for this device’s measurements.</td></tr></tbody>
+        </table>
+      </div>
+      <p id="comparison-note" class="meta"></p>
+      <button id="save-comparison" type="button" hidden>Download comparison JSON</button>
+    </section>
+
+    <section class="run" aria-labelledby="mode-title">
+      <div class="run-head">
+        <h2 id="mode-title">Individual run</h2>
+        <nav aria-label="Individual measurements">
+          <a data-mode="stock" href="?mode=stock">Stock</a>
+          <a data-mode="unmapped" href="?mode=unmapped">Proposed fix</a>
+        </nav>
+      </div>
+      <p id="mode-explanation"></p>
+      <p id="run-status" role="status">Preparing the renderer…</p>
+      <p id="allocation-note"></p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Individual run by test stage">
+        <table class="stages">
+          <thead><tr><th scope="col">Stage</th><th scope="col">Candidates</th><th scope="col">Capacity before → after</th><th scope="col">New buffers</th><th scope="col">Sort (ms)</th><th scope="col">Next callback (ms)</th></tr></thead>
+          <tbody id="frame-rows"></tbody>
+        </table>
+      </div>
+      <p class="meta">Sort measures elapsed time inside the CPU call. Next callback measures the interval between browser animation callbacks. Candidates are splats submitted before visibility culling.</p>
+      <button id="save" type="button" disabled>Download this run’s JSON</button>
+      <details id="controls">
+        <summary>Additional controls: startup reservation</summary>
+        <p>These runs test a different strategy: reserving memory before drawing. Compare them to see how much work moves to startup.</p>
+        <nav aria-label="Reservation controls">
+          <a data-mode="patched" href="?mode=patched">Reservation disabled</a>
+          <a data-mode="reserve" href="?mode=reserve">Reserve at startup</a>
+        </nav>
+      </details>
+    </section>
+
+    <section class="scene" aria-labelledby="scene-heading">
+      <div id="viewport"></div>
+      <div>
+        <h2 id="scene-heading">Roman Parish test scene</h2>
+        <p>One fixed camera renders the public scene. The default test fetches about 47 MB from PlayCanvas before timing starts.</p>
+        <a href="https://github.com/playcanvas/engine/blob/main/examples/src/examples/gaussian-splatting/lod-streaming.example.mjs">Scan by Andrii Shramko ↗</a>
+      </div>
+    </section>
+    <footer><a href="https://github.com/MisterE123/radix-sort-growth-repro">Repro source</a><a href="./measurements.json">Recorded JSON</a><a href="https://github.com/MisterE123/radix-sort-growth-repro/tree/main/radix-0.0.1/licenses">Code licenses</a></footer>
+  </main>
+  <div hidden aria-hidden="true"><span id="status"></span><table><tbody id="results"></tbody></table></div>
+  <script type="module" src="./report.js"></script>
   <script type="module">
     const mode = new URLSearchParams(location.search).get("mode");
-    await import(mode === "unmapped" ? "./app-unmapped.js" : mode === "patched" || mode === "reserve" ? "./app-patched.js" : "./app-stock.js");
+    try {
+      await import(mode === "unmapped" ? "./app-unmapped.js" : mode === "patched" || mode === "reserve" ? "./app-patched.js" : "./app-stock.js");
+    } catch (error) {
+      document.getElementById("status").textContent = "Could not load the test module. Reload to try again.";
+      console.error(error);
+    }
   </script>
 </body>
 </html>

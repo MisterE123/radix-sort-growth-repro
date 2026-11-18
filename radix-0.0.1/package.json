@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node serve.mjs",
-    "check": "node run.mjs"
+    "check": "node run.mjs",
+    "check:ui": "node check-report.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

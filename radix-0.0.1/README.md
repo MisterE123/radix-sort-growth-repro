@@ -4,11 +4,13 @@ The [issue update](ISSUE-UPDATE.md) is ready to paste into the upstream discussi
 
 Unzip the folder and run `node serve.mjs` from it. Open [the local page](http://127.0.0.1:4173/) in Edge or Chrome with WebGPU enabled and keep the tab visible. The page is prebuilt. It loads about 47 MB of scene data from PlayCanvas on the first run and starts the test automatically. The same folder can be served as a static site over HTTPS.
 
-Use the links above the canvas to compare stock Radix 0.0.1, unmapped allocation on growth, and the reservation patch with or without startup reservation. The reservation mode allocates scratch capacity for 3.5 million candidates before the first frame. Save the measurements as JSON from the page.
+Choose **Compare stock and fix** to run the published sorter and the unmapped-growth patch in sequence. The local results table compares the same stages, while the recorded RTX 3090 reference remains available above it. Download the individual run or the finished comparison as JSON. Under **Additional controls**, the reservation patch can be tested with startup reservation on or off. With the default counts it reserves space for 3.5 million candidates before drawing. Its run shows the upfront cost separately.
 
 The repro decodes seven disjoint level-0 chunks from the Roman Parish capture up front using the pinned Radix SOG example decoder and base color channels. One fixed camera and one GPU sorter render 2,000,000 candidate rows, 3,000,000 after capacity growth, 3,000,000 on replay, and 3,500,000 within the grown stock capacity. Each measurement tracks the synchronous sort call, the time until the start of the next animation frame callback, and the six named WebGPU scratch allocations. The candidate count is the number passed to the sorter before visibility compaction. After sampling the callbacks, the repro reads back the visible count and hashes the complete sorted index list.
 
 See [measurements.json](measurements.json) for the hardware runs and the SHA-256 of the tested bundles.
+
+After `npm install`, `npm run check:ui` exercises the comparison button, reservation labels, JSON download and reload behavior using the recorded measurements. The separate `npm run check` runs the WebGPU benchmark.
 
 - Add `&idleMs=125000` to a mode URL to leave the baseline displayed for two minutes and five seconds before the 3M frame. The default runs without a wait.
 - The optional `start`, `grow`, and `within` query values set candidate counts. Keep them ordered and at most 3,931,540. Stock grows to the larger of the requested count and twice its previous capacity, subject to device limits. Choose the final count within that capacity to keep the fourth frame as a control.

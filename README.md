@@ -1,10 +1,10 @@
 # Radix WebGPU sorter growth
 
-A browser test for the delay that can occur when the Radix 0.0.1 WebGPU sorter grows its scratch buffers. Run both versions on the same device, keep the tab visible, and compare the **Capacity crossing** row with **Same-count replay** and **Increase within stock capacity**.
+A browser test for the delay that can occur when the Radix 0.0.1 WebGPU sorter grows its scratch buffers. Choose **Compare stock and fix** to run both implementations in the same tab. The page shows the first increase alongside replay and a further increase. The stage labels tell you whether capacity actually grew.
 
 **[Run stock Radix 0.0.1](https://mistere123.github.io/radix-sort-growth-repro/radix-0.0.1/?mode=stock) · [Run the proposed fix](https://mistere123.github.io/radix-sort-growth-repro/radix-0.0.1/?mode=unmapped)**
 
-Both pages draw the public Roman Parish scan by Andrii Shramko. They fetch about 47 MB from PlayCanvas before measuring. The camera stays fixed while the test changes how many splats are passed to the sorter. Use **Save measurements** to keep your device’s results.
+Both versions draw the public Roman Parish scan by Andrii Shramko. They fetch about 47 MB from PlayCanvas before measuring. The camera stays fixed while the test changes how many splats are passed to the sorter. A completed comparison can be downloaded as JSON.
 
 | Included material | Location |
 |---|---|

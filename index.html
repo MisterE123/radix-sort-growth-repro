@@ -5,26 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
   <title>Radix WebGPU sorter growth</title>
-  <style>
-    :root { color-scheme: light dark; font: 1rem/1.6 system-ui, sans-serif; }
-    body { margin: clamp(2rem, 10vh, 7rem) auto; max-width: 40rem; padding: 0 1.2rem; }
-    h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.15; }
-    .runs { display: flex; flex-wrap: wrap; gap: .75rem; margin: 2rem 0; }
-    .runs a { display: inline-block; padding: .65rem 1rem; border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
-    .runs a:hover, .runs a:focus-visible { text-decoration: underline; }
-  </style>
+  <script>
+    const benchmark = new URL("./radix-0.0.1/", location.href);
+    benchmark.search = location.search;
+    benchmark.hash = location.hash;
+    location.replace(benchmark);
+  </script>
 </head>
 <body>
   <main>
     <h1>Radix WebGPU sorter growth</h1>
-    <p>Compare the time Radix spends sorting the Roman Parish scene when it first exceeds its current buffer capacity.</p>
-    <nav class="runs" aria-label="Run the comparison">
-      <a href="./radix-0.0.1/?mode=stock">Run stock Radix 0.0.1</a>
-      <a href="./radix-0.0.1/?mode=unmapped">Run the proposed fix</a>
-    </nav>
-    <p>Run each version in a WebGPU browser on the same device. Keep the tab visible and compare the <b>Capacity crossing</b> row with the next two rows. Each run loads about 47 MB of public scene data before timing begins.</p>
-    <p><a href="https://github.com/MisterE123/radix-sort-growth-repro/blob/main/radix-0.0.1/INVESTIGATION.md">Recorded measurements</a> · <a href="https://github.com/MisterE123/radix-sort-growth-repro">Source and patch</a> · <a href="https://github.com/sparkjsdev/radix/issues/1">Upstream issue</a></p>
-    <p>Roman Parish scan by <a href="https://github.com/playcanvas/engine/blob/main/examples/src/examples/gaussian-splatting/lod-streaming.example.mjs">Andrii Shramko, via PlayCanvas</a>.</p>
+    <p><a href="./radix-0.0.1/">Open the comparison</a> to see the recorded results or run the WebGPU test.</p>
   </main>
 </body>
 </html>

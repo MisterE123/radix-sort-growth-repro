@@ -1,0 +1,318 @@
+diff --git a/docs/rendering.md b/docs/rendering.md
+index 8fdd4f5..2398b86 100644
+--- a/docs/rendering.md
++++ b/docs/rendering.md
+@@ -121,6 +121,7 @@ const splatRenderer = new SplatRenderer({
+ | `requestSort()` | sort every view again at its next render, and call `onInvalidate()` (CPU sort) |
+ | `prepare(camera)` | projects and sorts for `camera` now, outside a render; the next render draws that instead of projecting again. Use it to keep WebGL2 timer queries from nesting |
+ | `phase` | `(name, run) => run()` wrapper for the `"project"` and `"sort"` steps, for example `GpuProfiler.phase` |
++| `reserveSortCapacity(count)` | allocates GPU sort buffers for up to `count` input splats outside rendering ([Sorting](sorting.md#the-gpu-sort)) |
+ | `readSortedCount()` | the GPU sort's visible count of the latest render (a readback) |
+ | `dispose()` | frees the renderer's arrays, sorter, material, and views, and releases objects only it held |
+ | `SplatRenderer.sortPool` | static: the `WorkerPool` every renderer's CPU sorts share, all views of all renderers without a `sortWorker`. Made on first use, starting workers as sorts need them; it lives with the page |
+diff --git a/docs/sorting.md b/docs/sorting.md
+index 70f14d0..066c65a 100644
+--- a/docs/sorting.md
++++ b/docs/sorting.md
+@@ -39,6 +39,8 @@ With `sortMode: "gpu"` (WebGPU's default), each render runs, after the projectio
+ 
+ Nothing is read back, so each frame is drawn in order for the current camera, with any number of cameras. `WgpuSplatSorter` combines the three ([wgpu.md](wgpu.md#wgpusplatsorter)); `splatRenderer.readSortedCount()` reads the visible count back for stats.
+ 
++When the application knows its peak input size, call `splatRenderer.reserveSortCapacity(count)` during loading to allocate the GPU sort's growing buffers up front. Use the number of input splats before visibility culling, such as `collection.count` or the planned peak streaming selection. The call has no effect in CPU sort mode or on the WebGL2 backend. Larger inputs can still grow the buffers, and repeating the call within the existing capacity reuses them. The renderer holds the allocation until disposal. At the exact requested capacity, the variable-size GPU buffers use about 16.5 bytes per input splat, with corresponding CPU-side arrays. Reservation has no effect on projected splat textures or first-use shader and pipeline creation.
++
+ Sorting more keys than the device's storage binding limit allows (by default 256 MiB, or 64M keys) throws an error naming the limit; `createRenderer({ limits: { maxStorageBufferBindingSize: "adapter" } })` asks for all the adapter has ([renderer.md](renderer.md#device-baselines)).
+ 
+ ## The CPU sort
+diff --git a/docs/wgpu.md b/docs/wgpu.md
+index 485d879..2fb9329 100644
+--- a/docs/wgpu.md
++++ b/docs/wgpu.md
+@@ -202,7 +202,7 @@ compact.compact(n);
+ |---|---|
+ | `new WgpuRadixSort({ renderer, keys, values, tier?, keysPerThread? })` | a stable LSD sort with 8-bit digits. `tier`: `"auto"` (default), `"portable"`, or `"subgroup"`. `keysPerThread`: 8 (default) or 16 (`RadixKeysPerThread`) |
+ | `sort(count, { bits? })` | sorts the first `count` keys and their values; `bits` is 16, 24, or 32 (default 32): 2, 3, or 4 passes |
+-| `sortIndirect(countBuffer, { bits? })` | the count from a buffer the GPU wrote (after compaction); every dispatch is sized on the GPU |
++| `sortIndirect(countBuffer, { bits?, maxCount? })` | the count from a buffer the GPU wrote (after compaction); an optional upper bound (defaults to key capacity) limits the scan, and every dispatch is sized on the GPU |
+ | `new WgpuCompact({ renderer, key, tier? })` | stream compaction of `key(i)` for the first `n` indices |
+ | `compact(n)`, `invalid`, `keys`, `values`, `count` | run it; the dropped key (a `uint` uniform, default all ones); the outputs |
+ | `dispose()` | frees the kernels and buffers |
+@@ -220,6 +220,7 @@ compact.compact(n);
+ | Member | What it does |
+ |---|---|
+ | `new WgpuSplatSorter(renderer)` | the sorter's kernels and buffers |
++| `reserveCapacity(count)` | allocates the variable-size buffers before sorting up to `count` input splats |
+ | `sort(projected, count, bits)` | sorts the first `count` splats of arrays with a `sortKeys` bundle (`SortKeys.KEYS`) |
+ | `values` | the sorted splat indices: `values.element(i)` is the i-th splat drawn |
+ | `count` | the visible count, as a TSL node |
+diff --git a/src/render/SplatRenderer.ts b/src/render/SplatRenderer.ts
+index 58d9061..22c7400 100644
+--- a/src/render/SplatRenderer.ts
++++ b/src/render/SplatRenderer.ts
+@@ -252,6 +252,15 @@ export class SplatRenderer extends THREE.Mesh<THREE.InstancedBufferGeometry, Nod
+     this.onInvalidate?.();
+   }
+ 
++  // Allocate the GPU sort's variable-size buffers for up to count input
++  // splats. Call outside rendering; larger collections can still grow.
++  reserveSortCapacity(count: number) {
++    if (this.disposed || this._sortMode !== "gpu" || !isWebGPUBackend(this.renderer) || count === 0) {
++      return;
++    }
++    (this.sorter ??= new WgpuSplatSorter(this.renderer)).reserveCapacity(count);
++  }
++
+   // The GPU sort's visible count of the latest render (a readback)
+   async readSortedCount(): Promise<number> {
+     return this.sorter && !this.disposed ? this.sorter.readCount() : 0;
+diff --git a/src/wgpu/WgpuCompact.ts b/src/wgpu/WgpuCompact.ts
+index 34b4670..6320835 100644
+--- a/src/wgpu/WgpuCompact.ts
++++ b/src/wgpu/WgpuCompact.ts
+@@ -118,12 +118,18 @@ export class WgpuCompact {
+     this.kernels = [blockCounts, scan, scatter];
+   }
+ 
++  // Allocate the variable-size buffers before compaction, preserving any output
++  // of a previous sort that can still be drawn.
++  reserveCapacity(n: number) {
++    this.ensureCapacity(n, { keep: true });
++    this.keys.gpuBuffer();
++    this.values.gpuBuffer();
++    this.blockOffsets.gpuBuffer();
++  }
++
+   // Compact the first n indices (queued synchronously)
+   compact(n: number) {
+-    const blocks = Math.max(1, Math.ceil(n / BLOCK));
+-    this.keys.ensureCapacity(n);
+-    this.values.ensureCapacity(n);
+-    this.blockOffsets.ensureCapacity(blocks);
++    const blocks = this.ensureCapacity(n);
+     this.n.value = n;
+     this.numBlocks.value = blocks;
+ 
+@@ -135,4 +141,12 @@ export class WgpuCompact {
+     this.kernels.forEach((kernel) => kernel.dispose());
+     [this.keys, this.values, this.count, this.blockOffsets].forEach((buffer) => buffer.dispose());
+   }
++
++  private ensureCapacity(n: number, options?: { keep?: boolean }) {
++    const blocks = Math.max(1, Math.ceil(n / BLOCK));
++    this.keys.ensureCapacity(n, options);
++    this.values.ensureCapacity(n, options);
++    this.blockOffsets.ensureCapacity(blocks);
++    return blocks;
++  }
+ }
+diff --git a/src/wgpu/WgpuRadixSort.ts b/src/wgpu/WgpuRadixSort.ts
+index e8d0f6d..a3b93c2 100644
+--- a/src/wgpu/WgpuRadixSort.ts
++++ b/src/wgpu/WgpuRadixSort.ts
+@@ -113,6 +113,14 @@ export class WgpuRadixSort {
+     this.blockHistograms.ensureCapacity(BINS * this.blocksFor(this.keys.capacity));
+   }
+ 
++  // Allocate the scratch buffers on the device at the current input capacity.
++  reserveCapacity() {
++    this.ensureCapacity();
++    this.keysB.gpuBuffer();
++    this.valuesB.gpuBuffer();
++    this.blockHistograms.gpuBuffer();
++  }
++
+   // Sort the first `count` keys and values in place (ascending, stable);
+   // keys must be below 2^bits
+   sort(count: number, { bits = 32 }: { bits?: SortKeyBits } = {}) {
+@@ -127,12 +135,16 @@ export class WgpuRadixSort {
+     this.run(this.direct, bits, [numBlocks]);
+   }
+ 
+-  // Sort the first countBuffer[0] keys and values (at most the capacity),
+-  // with every dispatch sized on the GPU: nothing is read back
+-  sortIndirect(countBuffer: WgpuBuffer<"uint32">, { bits = 32 }: { bits?: SortKeyBits } = {}) {
++  // Sort the first countBuffer[0] keys and values, bounded by maxCount and
++  // the input capacity, with every dispatch sized on the GPU.
++  sortIndirect(countBuffer: WgpuBuffer<"uint32">, { bits = 32, maxCount = this.keys.capacity }: {
++    bits?: SortKeyBits;
++    maxCount?: number;
++  } = {}) {
+     this.ensureCapacity();
+-    this.capacity.value = this.keys.capacity;
+-    this.maxBlocks.value = this.blocksFor(this.keys.capacity);
++    const bound = Math.min(this.keys.capacity, maxCount);
++    this.capacity.value = bound;
++    this.maxBlocks.value = this.blocksFor(bound);
+     if (this.indirect?.countBuffer !== countBuffer) {
+       this.indirect?.dispose();
+       this.indirect = this.makeIndirectKernels(countBuffer);
+diff --git a/src/wgpu/WgpuSplatSorter.ts b/src/wgpu/WgpuSplatSorter.ts
+index 11be23a..7328c64 100644
+--- a/src/wgpu/WgpuSplatSorter.ts
++++ b/src/wgpu/WgpuSplatSorter.ts
+@@ -58,6 +58,17 @@ export class WgpuSplatSorter {
+     });
+   }
+ 
++  // Allocate buffers for this many input keys before sorting.
++  reserveCapacity(count: number) {
++    if (!Number.isSafeInteger(count) || count < 0) {
++      throw new RangeError("WgpuSplatSorter.reserveCapacity: count must be a non-negative safe integer");
++    }
++    if (count > 0) {
++      this.compact.reserveCapacity(count);
++      this.radix.reserveCapacity();
++    }
++  }
++
+   // Sort the first `count` splats of `projected` (arrays with a sortKeys
+   // bundle of SortKeys.KEYS, as a SplatRenderer's projected arrays) by their keys of
+   // width `bits`
+@@ -66,7 +77,8 @@ export class WgpuSplatSorter {
+     this.compact.invalid.value = SortKeys.invalid(bits);
+ 
+     this.compact.compact(count);
+-    this.radix.sortIndirect(this.compact.count, { bits });
++    // Compaction can emit at most count keys, regardless of reserved capacity.
++    this.radix.sortIndirect(this.compact.count, { bits, maxCount: count });
+     this.args.dispatch(this.renderer, [1]);
+   }
+ 
+diff --git a/test/gpu/sortReservationTests.ts b/test/gpu/sortReservationTests.ts
+new file mode 100644
+index 0000000..ede1e02
+--- /dev/null
++++ b/test/gpu/sortReservationTests.ts
+@@ -0,0 +1,113 @@
++import type { WebGPURenderer } from "three/webgpu";
++import {
++  ArrayData, GpuArrays, SortKeys, SplatRenderer, WgpuBuffer, WgpuRadixSort, WgpuSplatSorter,
++  getGpuCaps, type SortKeyBits,
++} from "@sparkjsdev/radix";
++
++const BITS: SortKeyBits[] = [16, 24, 32];
++const COUNTS = [2049, 0, 1, 2048, 8193, 32769];
++
++function testKeys(count: number, bits: SortKeyBits) {
++  return Uint32Array.from({ length: count }, (_, i) => {
++    // Consecutive ties span block boundaries; interleave invalid keys.
++    const key = Math.imul((i + 1) >> 1, 0x9e3779b1) >>> (32 - bits);
++    return i % 7 === 0 ? SortKeys.invalid(bits) : key % (SortKeys.validMax(bits) + 1);
++  });
++}
++
++function mismatch(actual: Uint32Array, expected: Uint32Array) {
++  return expected.findIndex((value, i) => value !== actual[i]);
++}
++
++// Read back both buffers of the generic direct sort, across every key width.
++async function checkDirect(renderer: WebGPURenderer, input: Uint32Array<ArrayBuffer>, bits: SortKeyBits, withReservation: boolean) {
++  const keys = new WgpuBuffer({ renderer, format: "uint32", count: input.length });
++  const values = new WgpuBuffer({ renderer, format: "uint32", count: input.length });
++  const sorter = new WgpuRadixSort({ renderer, keys, values });
++  try {
++    if (withReservation) {
++      sorter.reserveCapacity();
++    }
++    keys.upload(input);
++    values.upload(Uint32Array.from(input, (_, i) => i));
++    sorter.sort(input.length, { bits });
++    const { ordering } = SortKeys.sort({ keys: input, count: input.length, bits, ordering: new Uint32Array(input.length) });
++    if (mismatch(await values.read(), ordering) >= 0 || mismatch(await keys.read(), Uint32Array.from(ordering, (i) => input[i])) >= 0) {
++      return `${bits} bits: incorrect direct keys or values`;
++    }
++  } finally {
++    sorter.dispose();
++    values.dispose();
++    keys.dispose();
++  }
++}
++
++// The focused harness also runs the same output checks against npm 0.0.1.
++export async function checkSortReservation(renderer: WebGPURenderer, withReservation = true): Promise<string | undefined> {
++  if (getGpuCaps(renderer).backend !== "webgpu") {
++    const splats = new SplatRenderer({ renderer });
++    try {
++      if (withReservation) {
++        splats.reserveSortCapacity(8193);
++      }
++      return (await splats.readSortedCount()) === 0 ? undefined : "WebGL2 reserve changed the sorted count";
++    } finally {
++      splats.dispose();
++    }
++  }
++
++  for (const bits of BITS) {
++    const keys = testKeys(COUNTS.at(-1)!, bits);
++    const direct = await checkDirect(renderer, keys, bits, withReservation);
++    if (direct) {
++      return direct;
++    }
++    const data = new ArrayData({ count: keys.length }).addBundle("sortKeys", SortKeys.KEYS, { data: { key: new Uint8Array(keys.buffer) } });
++    const arrays = GpuArrays.fromData(renderer, data);
++    const lazy = new WgpuSplatSorter(renderer);
++    const reserved = withReservation ? new WgpuSplatSorter(renderer) : undefined;
++    const sorters = reserved ? [lazy, reserved] : [lazy];
++    try {
++      if (reserved) {
++        reserved.reserveCapacity(8193);
++        const firstBuffer = reserved.values.gpuBuffer();
++        reserved.reserveCapacity(8193);
++        reserved.reserveCapacity(1024);
++        if (reserved.values.gpuBuffer() !== firstBuffer) {
++          return "repeated or smaller reservation replaced the current values buffer";
++        }
++      }
++      for (const count of COUNTS) {
++        const { ordering, visible } = SortKeys.sort({ keys, count, bits });
++        const indexCount = WgpuSplatSorter.QUADS_PER_INSTANCE * 6;
++        const instances = Math.ceil(visible / WgpuSplatSorter.QUADS_PER_INSTANCE);
++        const expectedArgs = Uint32Array.of(indexCount, instances, 0, 0, 0);
++        for (const sorter of sorters) {
++          sorter.sort(arrays, count, bits);
++          if (await sorter.readCount() !== visible) {
++            return `${bits} bits, ${count} keys: incorrect visible count`;
++          }
++          if (mismatch(await sorter.indirect.read(0, 5), expectedArgs) >= 0) {
++            return `${bits} bits, ${count} keys: incorrect indirect draw args`;
++          }
++          if (visible > 0 && mismatch(await sorter.values.read(0, visible), ordering.subarray(0, visible)) >= 0) {
++            return `${bits} bits, ${count} keys: incorrect sorted order`;
++          }
++        }
++        if (reserved && count === COUNTS[0]) {
++          // Late reservation must preserve the current order, including after
++          // the odd 24-bit pass count trades the active and scratch buffers.
++          reserved.reserveCapacity(24_001);
++          if (mismatch(await reserved.values.read(0, visible), ordering.subarray(0, visible)) >= 0) {
++            return `${bits} bits: late reservation discarded current values`;
++          }
++        }
++      }
++    } finally {
++      arrays.dispose();
++      lazy.dispose();
++      reserved?.dispose();
++    }
++  }
++  return undefined;
++}
+diff --git a/test/gpu/tests.ts b/test/gpu/tests.ts
+index 97e07c2..eb537e5 100644
+--- a/test/gpu/tests.ts
++++ b/test/gpu/tests.ts
+@@ -18,6 +18,7 @@ import { runControlsTests } from "./controlsTests";
+ import { runRenderTests } from "./renderTests";
+ import { runSceneTests } from "./sceneTests";
+ import { runShTests } from "./shTests";
++import { checkSortReservation } from "./sortReservationTests";
+ import { runSplatTests } from "./splatTests";
+ import { runWgpuTests } from "./wgpuTests";
+ 
+@@ -256,6 +257,7 @@ export async function runTests(renderer: WebGPURenderer, log: (result: TestResul
+   await runSplatTests(renderer, check);
+   await runShTests(renderer, check);
+   await runWgpuTests(renderer, check);
++  await check("GPU sort reservation preserves the order and supports later growth", () => checkSortReservation(renderer));
+   await runRenderTests(renderer, check);
+   await runSceneTests(renderer, check);
+   await runControlsTests(check);

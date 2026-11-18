@@ -1,0 +1,692 @@
+{
+  "stages": [
+    {
+      "pass": "warmup",
+      "count": 250000,
+      "index": 0,
+      "seconds": 5,
+      "start": 429.10000002384186,
+      "rafStart": 428.5
+    },
+    {
+      "pass": "growth",
+      "count": 250000,
+      "index": 0,
+      "seconds": 2,
+      "start": 5445.600000023842,
+      "rafStart": 5445.2
+    },
+    {
+      "pass": "growth",
+      "count": 3600000,
+      "index": 1,
+      "seconds": 2,
+      "start": 7445.600000023842,
+      "rafStart": 7445.3
+    },
+    {
+      "pass": "growth",
+      "count": 5000000,
+      "index": 2,
+      "seconds": 2,
+      "start": 9445.699999928474,
+      "rafStart": 9445.3
+    },
+    {
+      "pass": "growth",
+      "count": 5100000,
+      "index": 3,
+      "seconds": 2,
+      "start": 11445.799999952316,
+      "rafStart": 11445.4
+    },
+    {
+      "pass": "replay",
+      "count": 250000,
+      "index": 0,
+      "seconds": 2,
+      "start": 13462.399999976158,
+      "rafStart": 13462.2
+    },
+    {
+      "pass": "replay",
+      "count": 3600000,
+      "index": 1,
+      "seconds": 2,
+      "start": 15479.100000023842,
+      "rafStart": 15478.8
+    },
+    {
+      "pass": "replay",
+      "count": 5000000,
+      "index": 2,
+      "seconds": 125,
+      "start": 17479.100000023842,
+      "rafStart": 17478.9
+    },
+    {
+      "pass": "replay",
+      "count": 5100000,
+      "index": 3,
+      "seconds": 2,
+      "start": 142482.5,
+      "rafStart": 142482.3
+    }
+  ],
+  "events": [
+    {
+      "time": 429.1999999284744,
+      "type": "stage",
+      "pass": "warmup",
+      "count": 250000,
+      "stage": 0
+    },
+    {
+      "time": 439,
+      "type": "bufferCapacity",
+      "id": 1,
+      "label": "radix_compactKeys",
+      "before": 1,
+      "after": 250000,
+      "ms": 0.20000004768371582,
+      "stage": 0
+    },
+    {
+      "time": 439,
+      "type": "bufferCapacity",
+      "id": 2,
+      "label": "radix_compactValues",
+      "before": 1,
+      "after": 250000,
+      "ms": 0,
+      "stage": 0
+    },
+    {
+      "time": 439,
+      "type": "bufferCapacity",
+      "id": 3,
+      "label": "radix_compactBlockOffsets",
+      "before": 1,
+      "after": 123,
+      "ms": 0,
+      "stage": 0
+    },
+    {
+      "time": 457.6999999284744,
+      "type": "createBuffer",
+      "label": "bindingBuffer0_object_(vertex,fragment,compute)",
+      "size": 32,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0.09999990463256836,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 458.10000002384186,
+      "type": "createBuffer",
+      "label": "radix_compactBlockOffsets",
+      "size": 492,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 462.2999999523163,
+      "type": "createBuffer",
+      "label": "bindingBuffer1_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 462.2999999523163,
+      "type": "createBuffer",
+      "label": "radix_compactCount",
+      "size": 4,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 473,
+      "type": "createBuffer",
+      "label": "bindingBuffer2_object_(vertex,fragment,compute)",
+      "size": 32,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 473.10000002384186,
+      "type": "createBuffer",
+      "label": "radix_compactKeys",
+      "size": 1000000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 473.5,
+      "type": "createBuffer",
+      "label": "radix_compactValues",
+      "size": 1000000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 474.2999999523163,
+      "type": "bufferCapacity",
+      "id": 4,
+      "label": "radix_sortKeysB",
+      "before": 1,
+      "after": 250000,
+      "ms": 0,
+      "stage": 0
+    },
+    {
+      "time": 474.39999997615814,
+      "type": "bufferCapacity",
+      "id": 5,
+      "label": "radix_sortValuesB",
+      "before": 1,
+      "after": 250000,
+      "ms": 0.10000002384185791,
+      "stage": 0
+    },
+    {
+      "time": 474.39999997615814,
+      "type": "bufferCapacity",
+      "id": 6,
+      "label": "radix_sortBlockHistograms",
+      "before": 256,
+      "after": 31488,
+      "ms": 0,
+      "stage": 0
+    },
+    {
+      "time": 475.6999999284744,
+      "type": "createBuffer",
+      "label": "radix_sortIndirectArgs",
+      "size": 12,
+      "usage": 396,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 475.7999999523163,
+      "type": "createBuffer",
+      "label": "bindingBuffer3_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 478.5,
+      "type": "createBuffer",
+      "label": "bindingBuffer4_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 478.60000002384186,
+      "type": "createBuffer",
+      "label": "radix_sortBlockHistograms",
+      "size": 125952,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 480.89999997615814,
+      "type": "createBuffer",
+      "label": "bindingBuffer5_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 480.89999997615814,
+      "type": "createBuffer",
+      "label": "radix_sortDigitTotals",
+      "size": 1024,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 515.3999999761581,
+      "type": "createBuffer",
+      "label": "bindingBuffer6_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 515.5,
+      "type": "createBuffer",
+      "label": "radix_sortKeysB",
+      "size": 1000000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.10000002384185791,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 516,
+      "type": "createBuffer",
+      "label": "radix_sortValuesB",
+      "size": 1000000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.20000004768371582,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 519.8999999761581,
+      "type": "createBuffer",
+      "label": "bindingBuffer7_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 553.3999999761581,
+      "type": "createBuffer",
+      "label": "bindingBuffer8_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 557.7999999523163,
+      "type": "createBuffer",
+      "label": "bindingBuffer9_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 591.6000000238419,
+      "type": "createBuffer",
+      "label": "bindingBuffer10_object_(vertex,fragment,compute)",
+      "size": 16,
+      "usage": 72,
+      "mappedAtCreation": false,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 593,
+      "type": "createBuffer",
+      "label": "radix_splatDrawArgs",
+      "size": 20,
+      "usage": 396,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 0
+    },
+    {
+      "time": 5445.699999928474,
+      "type": "stage",
+      "pass": "growth",
+      "count": 250000,
+      "stage": 1
+    },
+    {
+      "time": 7445.600000023842,
+      "type": "stage",
+      "pass": "growth",
+      "count": 3600000,
+      "stage": 2
+    },
+    {
+      "time": 7446,
+      "type": "bufferCapacity",
+      "id": 1,
+      "label": "radix_sortKeysB",
+      "before": 250000,
+      "after": 3600000,
+      "ms": 0.20000004768371582,
+      "stage": 2
+    },
+    {
+      "time": 7446.100000023842,
+      "type": "bufferCapacity",
+      "id": 2,
+      "label": "radix_sortValuesB",
+      "before": 250000,
+      "after": 3600000,
+      "ms": 0.10000002384185791,
+      "stage": 2
+    },
+    {
+      "time": 7446.100000023842,
+      "type": "bufferCapacity",
+      "id": 3,
+      "label": "radix_compactBlockOffsets",
+      "before": 123,
+      "after": 1758,
+      "ms": 0,
+      "stage": 2
+    },
+    {
+      "time": 7446.100000023842,
+      "type": "createBuffer",
+      "label": "radix_compactBlockOffsets",
+      "size": 7032,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 7456.899999976158,
+      "type": "createBuffer",
+      "label": "radix_sortKeysB",
+      "size": 14400000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 7,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 7466.699999928474,
+      "type": "createBuffer",
+      "label": "radix_sortValuesB",
+      "size": 14400000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 6.600000023841858,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 7469.5,
+      "type": "bufferCapacity",
+      "id": 4,
+      "label": "radix_compactKeys",
+      "before": 250000,
+      "after": 3600000,
+      "ms": 0.10000002384185791,
+      "stage": 2
+    },
+    {
+      "time": 7470.299999952316,
+      "type": "bufferCapacity",
+      "id": 5,
+      "label": "radix_compactValues",
+      "before": 250000,
+      "after": 3600000,
+      "ms": 0.7999999523162842,
+      "stage": 2
+    },
+    {
+      "time": 7470.399999976158,
+      "type": "bufferCapacity",
+      "id": 6,
+      "label": "radix_sortBlockHistograms",
+      "before": 31488,
+      "after": 450048,
+      "ms": 0.10000002384185791,
+      "stage": 2
+    },
+    {
+      "time": 7470.699999928474,
+      "type": "createBuffer",
+      "label": "radix_sortBlockHistograms",
+      "size": 1800192,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.09999990463256836,
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 7477.5,
+      "type": "createBuffer",
+      "label": "radix_compactKeys",
+      "size": 14400000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 5.899999976158142,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 7487.100000023842,
+      "type": "createBuffer",
+      "label": "radix_compactValues",
+      "size": 14400000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 6.600000023841858,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 2
+    },
+    {
+      "time": 9445.699999928474,
+      "type": "stage",
+      "pass": "growth",
+      "count": 5000000,
+      "stage": 3
+    },
+    {
+      "time": 9446.699999928474,
+      "type": "bufferCapacity",
+      "id": 1,
+      "label": "radix_compactKeys",
+      "before": 3600000,
+      "after": 7200000,
+      "ms": 0.6999999284744263,
+      "stage": 3
+    },
+    {
+      "time": 9446.799999952316,
+      "type": "bufferCapacity",
+      "id": 2,
+      "label": "radix_compactValues",
+      "before": 3600000,
+      "after": 7200000,
+      "ms": 0.10000002384185791,
+      "stage": 3
+    },
+    {
+      "time": 9447,
+      "type": "bufferCapacity",
+      "id": 3,
+      "label": "radix_compactBlockOffsets",
+      "before": 1758,
+      "after": 3516,
+      "ms": 0.20000004768371582,
+      "stage": 3
+    },
+    {
+      "time": 9447.399999976158,
+      "type": "createBuffer",
+      "label": "radix_compactBlockOffsets",
+      "size": 14064,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0,
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 9459.399999976158,
+      "type": "createBuffer",
+      "label": "radix_compactKeys",
+      "size": 28800000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 11.899999976158142,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 9476.899999976158,
+      "type": "createBuffer",
+      "label": "radix_compactValues",
+      "size": 28800000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 11.199999928474426,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 9484.5,
+      "type": "bufferCapacity",
+      "id": 4,
+      "label": "radix_sortKeysB",
+      "before": 3600000,
+      "after": 7200000,
+      "ms": 2.100000023841858,
+      "stage": 3
+    },
+    {
+      "time": 9485.199999928474,
+      "type": "bufferCapacity",
+      "id": 5,
+      "label": "radix_sortValuesB",
+      "before": 3600000,
+      "after": 7200000,
+      "ms": 0.6999999284744263,
+      "stage": 3
+    },
+    {
+      "time": 9485.199999928474,
+      "type": "bufferCapacity",
+      "id": 6,
+      "label": "radix_sortBlockHistograms",
+      "before": 450048,
+      "after": 900096,
+      "ms": 0,
+      "stage": 3
+    },
+    {
+      "time": 9485.5,
+      "type": "createBuffer",
+      "label": "radix_sortBlockHistograms",
+      "size": 3600384,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 0.20000004768371582,
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 9500.199999928474,
+      "type": "createBuffer",
+      "label": "radix_sortKeysB",
+      "size": 28800000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 13.700000047683716,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 9518.5,
+      "type": "createBuffer",
+      "label": "radix_sortValuesB",
+      "size": 28800000,
+      "usage": 172,
+      "mappedAtCreation": true,
+      "ms": 11.700000047683716,
+      "stack": "Error: allocation stack\n    at GPUDevice.createBuffer (http://127.0.0.1:61171/app.js:76422:185)\n    at WebGPUAttributeUtils.createAttribute (http://127.0.0.1:61171/app.js:63657:25)\n    at WebGPUBackend.createStorageAttribute (http://127.0.0.1:61171/app.js:66957:25)\n    at Attributes.update (http://127.0.0.1:61171/app.js:34527:22)\n    at Bindings._update (http://127.0.0.1:61171/app.js:35604:25)\n    at Bindings._updateBindings (http://127.0.0.1:61171/app.js:35582:12)\n    at Bindings.updateForCompute (http://127.0.0.1:61171/app.js:35462:10)\n    at WebGPURenderer.compute (http://127.0.0.1:61171/app.js:51496:16)\n    at flush (http://127.0.0.1:61171/app.js:73493:19)\n    at WgpuComputeBatch.submit (http://127.0.0.1:61171/app.js:73507:5)",
+      "created": true,
+      "stage": 3
+    },
+    {
+      "time": 11445.799999952316,
+      "type": "stage",
+      "pass": "growth",
+      "count": 5100000,
+      "stage": 4
+    },
+    {
+      "time": 13462.399999976158,
+      "type": "stage",
+      "pass": "replay",
+      "count": 250000,
+      "stage": 5
+    },
+    {
+      "time": 15479.100000023842,
+      "type": "stage",
+      "pass": "replay",
+      "count": 3600000,
+      "stage": 6
+    },
+    {
+      "time": 17479.100000023842,
+      "type": "stage",
+      "pass": "replay",
+      "count": 5000000,
+      "stage": 7
+    },
+    {
+      "time": 142482.5,
+      "type": "stage",
+      "pass": "replay",
+      "count": 5100000,
+      "stage": 8
+    }
+  ]
+}

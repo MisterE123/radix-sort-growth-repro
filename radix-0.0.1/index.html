@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Radix WebGPU sorter capacity reproduction</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; }
+    body { max-width: 54rem; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.55rem; }
+    canvas { display: block; width: min(100%, 640px); height: auto; }
+    table { border-collapse: collapse; margin-block: 1rem; width: 100%; }
+    th, td { padding: .45rem .55rem; border-bottom: 1px solid #555; text-align: left; }
+    th { font-size: .85rem; }
+    button { padding: .4rem .6rem; }
+  </style>
+  <script type="importmap">
+    {"imports":{"three":"./three/three.module.js","three/webgpu":"./three/three.webgpu.js","three/tsl":"./three/three.tsl.js"}}
+  </script>
+</head>
+<body>
+  <h1>Radix WebGPU sorter capacity reproduction</h1>
+  <p><a href="?mode=stock">Stock 0.0.1</a> · <a href="?mode=unmapped">Unmapped growth</a> · <a href="?mode=patched">Patch without reservation</a> · <a href="?mode=reserve">Patch with startup reservation</a></p>
+  <p id="status" role="status">Starting WebGPU…</p>
+  <div id="viewport"></div>
+  <table aria-label="Frame results">
+    <thead><tr><th>Frame</th><th>Candidates</th><th>Visible</th><th>Pair capacity</th><th>Scratch buffers</th><th>Sort CPU ms</th><th>Next callback ms</th></tr></thead>
+    <tbody id="results"></tbody>
+  </table>
+  <p><button id="save" disabled>Save measurements</button></p>
+  <p>Roman Parish scan by <a href="https://www.linkedin.com/in/andrii-shramko/">Andrii Shramko</a>, streamed from the <a href="https://code.playcanvas.com/examples_data/example_roman_parish_03/lod-meta.json">PlayCanvas example</a>.</p>
+  <script type="module">
+    const mode = new URLSearchParams(location.search).get("mode");
+    await import(mode === "unmapped" ? "./app-unmapped.js" : mode === "patched" || mode === "reserve" ? "./app-patched.js" : "./app-stock.js");
+  </script>
+</body>
+</html>

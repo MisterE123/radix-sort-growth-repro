@@ -1,0 +1,222 @@
+{
+  "upstreamCommit": "a9963abf8a333a3ff8d1580c0271274b6d909ff5",
+  "stock": {
+    "browser": "Headless Microsoft Edge",
+    "browserVersion": "157.0.4341.60",
+    "adapter": {
+      "vendor": "nvidia",
+      "description": ""
+    },
+    "caps": {
+      "backend": "webgpu",
+      "compute": true,
+      "maxTextureSize": 16384,
+      "maxTextureLayers": 2048,
+      "maxColorAttachments": 8,
+      "maxTexturesPerStage": 16,
+      "maxStorageTexturesPerStage": 4,
+      "maxStorageBuffersPerStage": 10,
+      "maxWorkgroupStorage": 32768,
+      "float32Blendable": true,
+      "float32Filterable": true,
+      "subgroups": true,
+      "multiview": false,
+      "hdr": false
+    },
+    "totals": {
+      "checks": 199,
+      "passed": 189,
+      "skipped": 1,
+      "failed": 9
+    },
+    "uncapturedErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "patched": {
+    "browser": "Headless Microsoft Edge",
+    "browserVersion": null,
+    "adapter": {
+      "vendor": "nvidia",
+      "description": ""
+    },
+    "caps": {
+      "backend": "webgpu",
+      "compute": true,
+      "maxTextureSize": 16384,
+      "maxTextureLayers": 2048,
+      "maxColorAttachments": 8,
+      "maxTexturesPerStage": 16,
+      "maxStorageTexturesPerStage": 4,
+      "maxStorageBuffersPerStage": 10,
+      "maxWorkgroupStorage": 32768,
+      "float32Blendable": true,
+      "float32Filterable": true,
+      "subgroups": true,
+      "multiview": false,
+      "hdr": false
+    },
+    "totals": {
+      "checks": 202,
+      "passed": 192,
+      "skipped": 1,
+      "failed": 9
+    },
+    "uncapturedErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "sharedChecks": 199,
+  "failures": [
+    {
+      "name": "GpuSplats.storeExt (TSL encode) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storeExt (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2617 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storeExt (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2617 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "GpuSplats.storeExt (TSL encode, compute) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storeExt (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2617 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storeExt (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2617 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "GpuSplats.storeCov (TSL encode) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storeCov (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2958 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storeCov (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2958 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "GpuSplats.storeCov (TSL encode, compute) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storeCov (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2958 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storeCov (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2958 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "GpuSplats.storePacked (TSL encode) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storePacked (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2603 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storePacked (TSL encode) matches the CPU's bits",
+        "ok": false,
+        "detail": "2603 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "GpuSplats.storePacked (TSL encode, compute) matches the CPU's bits",
+      "stock": {
+        "name": "GpuSplats.storePacked (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2603 of 3000 splats differ"
+      },
+      "patched": {
+        "name": "GpuSplats.storePacked (TSL encode, compute) matches the CPU's bits",
+        "ok": false,
+        "detail": "2603 of 3000 splats differ"
+      }
+    },
+    {
+      "name": "SH: ext palette (degree 3 at strides 4 and 4, degree 4 at 8 and 6) decodes as on the CPU",
+      "stock": {
+        "name": "SH: ext palette (degree 3 at strides 4 and 4, degree 4 at 8 and 6) decodes as on the CPU",
+        "ok": false,
+        "detail": "degree 4, stride 8, band(): relative difference 0.0018674157080654803"
+      },
+      "patched": {
+        "name": "SH: ext palette (degree 3 at strides 4 and 4, degree 4 at 8 and 6) decodes as on the CPU",
+        "ok": false,
+        "detail": "degree 4, stride 8, band(): relative difference 0.0018674157080654803"
+      }
+    },
+    {
+      "name": "SH: packed palette (degree 3 at strides 4 and 3, degree 4 at 8 and 5) decodes as on the CPU",
+      "stock": {
+        "name": "SH: packed palette (degree 3 at strides 4 and 3, degree 4 at 8 and 5) decodes as on the CPU",
+        "ok": false,
+        "detail": "degree 4, stride 8, band(): relative difference 0.0018764353174155549"
+      },
+      "patched": {
+        "name": "SH: packed palette (degree 3 at strides 4 and 3, degree 4 at 8 and 5) decodes as on the CPU",
+        "ok": false,
+        "detail": "degree 4, stride 8, band(): relative difference 0.0018764353174155549"
+      }
+    },
+    {
+      "name": "render: under Hdr tone mapping, a frame below the knee is the one without it (splats blend as trained)",
+      "stock": {
+        "name": "render: under Hdr tone mapping, a frame below the knee is the one without it (splats blend as trained)",
+        "ok": false,
+        "detail": "largest rgb difference 5 (mean 0.30)"
+      },
+      "patched": {
+        "name": "render: under Hdr tone mapping, a frame below the knee is the one without it (splats blend as trained)",
+        "ok": false,
+        "detail": "largest rgb difference 5 (mean 0.30)"
+      }
+    }
+  ],
+  "skips": [
+    {
+      "name": "GpuArrays storage: true needs WebGPU",
+      "stock": {
+        "name": "GpuArrays storage: true needs WebGPU",
+        "ok": true,
+        "skipped": true
+      },
+      "patched": {
+        "name": "GpuArrays storage: true needs WebGPU",
+        "ok": true,
+        "skipped": true
+      }
+    }
+  ],
+  "differences": [],
+  "stockOnly": [],
+  "patchedOnly": [
+    {
+      "name": "WgpuBuffer: discard growth zeroes new storage and keep preserves scalar data",
+      "ok": true
+    },
+    {
+      "name": "WgpuRadixSort: stable direct ordering across repeat growth and buffer swaps",
+      "ok": true
+    },
+    {
+      "name": "WgpuSplatSorter: indirect count and stable indices across growth, culling and zero",
+      "ok": true
+    }
+  ]
+}

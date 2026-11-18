@@ -1,0 +1,842 @@
+{
+  "date": "2026-11-18",
+  "browser": "Microsoft Edge 157.0.4341.60, headless",
+  "viewport": [
+    640,
+    360
+  ],
+  "source": "https://code.playcanvas.com/examples_data/example_roman_parish_03/lod-meta.json",
+  "assetCredit": "Andrii Shramko",
+  "sourceBytes": 47044828,
+  "runs": [
+    {
+      "transport": "locally cached official files",
+      "idleMs": 0,
+      "modes": {
+        "stock": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 0.5,
+              "projectMs": 0.5,
+              "frameMs": 2,
+              "followingCallbackGapMs": 16.7,
+              "buffers": []
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 52.5,
+              "projectMs": 1.5,
+              "frameMs": 59.1,
+              "followingCallbackGapMs": 61.3,
+              "buffers": [
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816
+                },
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000
+                }
+              ]
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.4,
+              "projectMs": 1,
+              "frameMs": 1.9,
+              "followingCallbackGapMs": 16.6,
+              "buffers": []
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.2,
+              "projectMs": 1.5,
+              "frameMs": 2.3,
+              "followingCallbackGapMs": 16.6,
+              "buffers": []
+            }
+          ]
+        },
+        "unmapped": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 1.2,
+              "projectMs": 0.9,
+              "frameMs": 2.8,
+              "followingCallbackGapMs": 16.6,
+              "buffers": []
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 1.5,
+              "projectMs": 1.5,
+              "frameMs": 3.6,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896
+                }
+              ]
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.4,
+              "projectMs": 1.3,
+              "frameMs": 2.3,
+              "followingCallbackGapMs": 16.8,
+              "buffers": []
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.7,
+              "projectMs": 1.7,
+              "frameMs": 3.1,
+              "followingCallbackGapMs": 16.5,
+              "buffers": []
+            }
+          ]
+        },
+        "patched": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 0.4,
+              "projectMs": 1,
+              "frameMs": 2.1,
+              "followingCallbackGapMs": 16.7,
+              "buffers": []
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 53.1,
+              "projectMs": 1.5,
+              "frameMs": 56,
+              "followingCallbackGapMs": 57.6,
+              "buffers": [
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816
+                },
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000
+                }
+              ]
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.9,
+              "projectMs": 1.1,
+              "frameMs": 2.5,
+              "followingCallbackGapMs": 16.5,
+              "buffers": []
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.8,
+              "projectMs": 1.4,
+              "frameMs": 2.8,
+              "followingCallbackGapMs": 16.6,
+              "buffers": []
+            }
+          ]
+        },
+        "reserve": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserveMs": 40.9,
+          "reserve": [
+            {
+              "label": "radix_compactKeys",
+              "bytes": 14000000
+            },
+            {
+              "label": "radix_compactValues",
+              "bytes": 14000000
+            },
+            {
+              "label": "radix_compactBlockOffsets",
+              "bytes": 6836
+            },
+            {
+              "label": "radix_sortKeysB",
+              "bytes": 14000000
+            },
+            {
+              "label": "radix_sortValuesB",
+              "bytes": 14000000
+            },
+            {
+              "label": "radix_sortBlockHistograms",
+              "bytes": 1750016
+            }
+          ],
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.3,
+              "projectMs": 0.7,
+              "frameMs": 1.5,
+              "followingCallbackGapMs": 16.8,
+              "buffers": []
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.5,
+              "projectMs": 1.8,
+              "frameMs": 2.9,
+              "followingCallbackGapMs": 16.4,
+              "buffers": []
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.3,
+              "projectMs": 0.8,
+              "frameMs": 1.6,
+              "followingCallbackGapMs": 16.5,
+              "buffers": []
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.4,
+              "projectMs": 0.8,
+              "frameMs": 1.7,
+              "followingCallbackGapMs": 16.6,
+              "buffers": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "transport": "direct from PlayCanvas CDN",
+      "idleMs": 0,
+      "modes": {
+        "stock": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "finalCanvasSha256": "34ac1090a8d80bcb06daf7aa51c164a4d7384de7ba6daab2086a07b77631c9c2",
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 0.3,
+              "projectMs": 0.7,
+              "frameMs": 1.7,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [],
+              "sortedIndicesSha256": "babc7c4ea9789163ceb8c24c96f0f503a6a132ba216fd6371b91dc4b34472893"
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 42.2,
+              "projectMs": 1.4,
+              "frameMs": 44.4,
+              "followingCallbackGapMs": 46.1,
+              "buffers": [
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                }
+              ],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.3,
+              "projectMs": 0.8,
+              "frameMs": 1.6,
+              "followingCallbackGapMs": 14.6,
+              "buffers": [],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.3,
+              "projectMs": 1,
+              "frameMs": 1.8,
+              "followingCallbackGapMs": 16.5,
+              "buffers": [],
+              "sortedIndicesSha256": "42109d7beab62c41fdbcf81db51fe59ab065f7b9669bfcf507f4d0ad81dfdaea"
+            }
+          ]
+        },
+        "unmapped": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "finalCanvasSha256": "34ac1090a8d80bcb06daf7aa51c164a4d7384de7ba6daab2086a07b77631c9c2",
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 0.2,
+              "projectMs": 0.6,
+              "frameMs": 1.3,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [],
+              "sortedIndicesSha256": "babc7c4ea9789163ceb8c24c96f0f503a6a132ba216fd6371b91dc4b34472893"
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 1.3,
+              "projectMs": 1,
+              "frameMs": 2.8,
+              "followingCallbackGapMs": 16.5,
+              "buffers": [
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": false
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": false
+                },
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816,
+                  "mappedAtCreation": false
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000,
+                  "mappedAtCreation": false
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000,
+                  "mappedAtCreation": false
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896,
+                  "mappedAtCreation": false
+                }
+              ],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.5,
+              "projectMs": 1,
+              "frameMs": 1.9,
+              "followingCallbackGapMs": 15.9,
+              "buffers": [],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.3,
+              "projectMs": 1,
+              "frameMs": 1.7,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [],
+              "sortedIndicesSha256": "42109d7beab62c41fdbcf81db51fe59ab065f7b9669bfcf507f4d0ad81dfdaea"
+            }
+          ]
+        },
+        "patched": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserve": [],
+          "finalCanvasSha256": "34ac1090a8d80bcb06daf7aa51c164a4d7384de7ba6daab2086a07b77631c9c2",
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 2000000,
+              "sortMs": 0.3,
+              "projectMs": 0.6,
+              "frameMs": 1.4,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [],
+              "sortedIndicesSha256": "babc7c4ea9789163ceb8c24c96f0f503a6a132ba216fd6371b91dc4b34472893"
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 2000000,
+              "capacityAfter": 4000000,
+              "sortMs": 39.5,
+              "projectMs": 1.1,
+              "frameMs": 41,
+              "followingCallbackGapMs": 42.6,
+              "buffers": [
+                {
+                  "label": "radix_compactBlockOffsets",
+                  "bytes": 7816,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortKeysB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortValuesB",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_sortBlockHistograms",
+                  "bytes": 2000896,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_compactKeys",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                },
+                {
+                  "label": "radix_compactValues",
+                  "bytes": 16000000,
+                  "mappedAtCreation": true
+                }
+              ],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.3,
+              "projectMs": 0.7,
+              "frameMs": 1.3,
+              "followingCallbackGapMs": 16.8,
+              "buffers": [],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 4000000,
+              "capacityAfter": 4000000,
+              "sortMs": 0.3,
+              "projectMs": 0.9,
+              "frameMs": 1.7,
+              "followingCallbackGapMs": 16.6,
+              "buffers": [],
+              "sortedIndicesSha256": "42109d7beab62c41fdbcf81db51fe59ab065f7b9669bfcf507f4d0ad81dfdaea"
+            }
+          ]
+        },
+        "reserve": {
+          "done": true,
+          "errors": [],
+          "browserErrors": [],
+          "reserveMs": 35.2,
+          "reserve": [
+            {
+              "label": "radix_compactKeys",
+              "bytes": 14000000,
+              "mappedAtCreation": true
+            },
+            {
+              "label": "radix_compactValues",
+              "bytes": 14000000,
+              "mappedAtCreation": true
+            },
+            {
+              "label": "radix_compactBlockOffsets",
+              "bytes": 6836,
+              "mappedAtCreation": true
+            },
+            {
+              "label": "radix_sortKeysB",
+              "bytes": 14000000,
+              "mappedAtCreation": true
+            },
+            {
+              "label": "radix_sortValuesB",
+              "bytes": 14000000,
+              "mappedAtCreation": true
+            },
+            {
+              "label": "radix_sortBlockHistograms",
+              "bytes": 1750016,
+              "mappedAtCreation": true
+            }
+          ],
+          "finalCanvasSha256": "34ac1090a8d80bcb06daf7aa51c164a4d7384de7ba6daab2086a07b77631c9c2",
+          "frames": [
+            {
+              "name": "Baseline",
+              "candidates": 2000000,
+              "visible": 537760,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.5,
+              "projectMs": 0.5,
+              "frameMs": 1.5,
+              "followingCallbackGapMs": 16.6,
+              "buffers": [],
+              "sortedIndicesSha256": "babc7c4ea9789163ceb8c24c96f0f503a6a132ba216fd6371b91dc4b34472893"
+            },
+            {
+              "name": "Capacity crossing",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.3,
+              "projectMs": 1,
+              "frameMs": 1.7,
+              "followingCallbackGapMs": 16.6,
+              "buffers": [],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Same-count replay",
+              "candidates": 3000000,
+              "visible": 681005,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.3,
+              "projectMs": 0.6,
+              "frameMs": 1.2,
+              "followingCallbackGapMs": 16.7,
+              "buffers": [],
+              "sortedIndicesSha256": "1d5c3a0e690f5be51929b69b38fc6a100f71a6ef800b691c963b0d24b459b300"
+            },
+            {
+              "name": "Increase within stock capacity",
+              "candidates": 3500000,
+              "visible": 693730,
+              "sorter": 1,
+              "drawCalls": 1,
+              "capacityBefore": 3500000,
+              "capacityAfter": 3500000,
+              "sortMs": 0.3,
+              "projectMs": 0.7,
+              "frameMs": 1.4,
+              "followingCallbackGapMs": 16.9,
+              "buffers": [],
+              "sortedIndicesSha256": "42109d7beab62c41fdbcf81db51fe59ab065f7b9669bfcf507f4d0ad81dfdaea"
+            }
+          ]
+        }
+      },
+      "testedFilesSha256": {
+        "app-stock.js": "10a4e6cfd3fa89a7efef23f7d9eb1cd51f090ae3d7464d7e5d28ca2771651c90",
+        "app-patched.js": "a0ec1002bda203e936eec553bb6b5a7cb2a843880130f5e8ae3378fe232b760f",
+        "app-unmapped.js": "946c19b76a11d2ce346d8e0873b6b90a92d0fc1872f88740bc2c4a457f079891",
+        "patches/radix-webgpu-sort-reservation.patch": "11537d5c5dbd10882e60dffd6dd74c7db6812ce23457092395711fada0b8cb3b",
+        "patches/unmapped-growth.patch": "6f604019dd304bce3e7ade0019680619078c8943410f3e1705ebdff2c37f6a3a"
+      },
+      "sourceRadixModuleSha256": {
+        "stock": "8633fa532e88358df44b907dc2d01d7cc6206c4f0fa5ceed7f56bf26161442e6",
+        "reservationPatch": "969343f2021b58f08a74446a2b1ce908cf267874bf5caab33de99746d163b32b",
+        "unmappedGrowthPatch": "2bde64e1eb2ab70089ba69e7531eeb5c31372e4228ed180c3a0788ea49d65e8c"
+      }
+    }
+  ],
+  "backend": "webgpu",
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "",
+    "description": ""
+  },
+  "sourceChunks": [
+    {
+      "name": "0_0",
+      "count": 528507
+    },
+    {
+      "name": "0_1",
+      "count": 534035
+    },
+    {
+      "name": "0_2",
+      "count": 590090
+    },
+    {
+      "name": "0_3",
+      "count": 554730
+    },
+    {
+      "name": "0_4",
+      "count": 594452
+    },
+    {
+      "name": "0_5",
+      "count": 573643
+    },
+    {
+      "name": "0_6",
+      "count": 556083
+    }
+  ],
+  "distribution": {
+    "note": "The optional reservation patch received two corrections to expected test data after the public benchmark. The renderer source and tested browser bundles are identical. The measured patch hash is preserved in the corresponding run.",
+    "filesSha256": {
+      "app-stock.js": "10a4e6cfd3fa89a7efef23f7d9eb1cd51f090ae3d7464d7e5d28ca2771651c90",
+      "app-patched.js": "a0ec1002bda203e936eec553bb6b5a7cb2a843880130f5e8ae3378fe232b760f",
+      "app-unmapped.js": "946c19b76a11d2ce346d8e0873b6b90a92d0fc1872f88740bc2c4a457f079891",
+      "patches/radix-webgpu-sort-reservation.patch": "121ee43c5c772ff9f53813da80904c8b4a029ebce175b305a7f05cc9f7fcbc9e",
+      "patches/unmapped-growth.patch": "6f604019dd304bce3e7ade0019680619078c8943410f3e1705ebdff2c37f6a3a"
+    }
+  }
+}

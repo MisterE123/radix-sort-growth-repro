@@ -1,0 +1,57 @@
+[
+  {
+    "variant": "stock",
+    "backend": "webgpu",
+    "ok": true,
+    "patched": false,
+    "subgroupTier": true,
+    "reserveAllocations": [],
+    "sortAllocationCount": 63
+  },
+  {
+    "variant": "patched",
+    "backend": "webgpu",
+    "ok": true,
+    "patched": true,
+    "subgroupTier": true,
+    "reserveAllocations": [
+      {
+        "label": "radix_compactKeys",
+        "size": 32772,
+        "destroyed": true
+      },
+      {
+        "label": "radix_compactValues",
+        "size": 32772,
+        "destroyed": true
+      },
+      {
+        "label": "radix_compactBlockOffsets",
+        "size": 20,
+        "destroyed": true
+      },
+      {
+        "label": "radix_sortKeysB",
+        "size": 32772,
+        "destroyed": true
+      },
+      {
+        "label": "radix_sortValuesB",
+        "size": 32772,
+        "destroyed": true
+      },
+      {
+        "label": "radix_sortBlockHistograms",
+        "size": 5120,
+        "destroyed": true
+      }
+    ],
+    "sortAllocationCount": 117
+  },
+  {
+    "variant": "patched",
+    "backend": "webgpu-gl",
+    "ok": true,
+    "patched": true
+  }
+]
